@@ -5,7 +5,6 @@ const UserModel = require("../db/models/users");
 const ProjectModel = require("../db/models/projects");
 const TicketModel = require("../db/models/tickets");
 const dotenv = require("dotenv");
-
 dotenv.config();
 
 //Conexion del ORM a la DB -usando .env
@@ -20,6 +19,31 @@ const Project = ProjectModel(sequelize,Sequelize);
 const Ticket = TicketModel(sequelize,Sequelize);
 
 //Quedan Relaciones -Definirlas
+User.hasMany(Project,{
+    foreignKey: 'usuarioId',
+    sourceKey: 'id',
+    onDelete: 'CASCADE'
+});
+
+Project.belongsTo(User,{
+    foreignKey: 'usuarioId',
+    targetKey: 'id',
+    onDelete: 'CASCADE',
+    as: 'usuario'
+});
+
+Project.hasMany(Ticket,{
+    foreignKey: 'projectId',
+    sourceKey: 'id',
+    onDelete: 'CASCADE'
+});
+
+Ticket.belongsTo(Project,{
+    foreignKey:'projectId',
+    targetKey: 'id',
+    onDelete: 'CASCADE',
+    as: 'project'
+});
 
 //Metodo para sincronizar
 sequelize.sync()
@@ -34,5 +58,5 @@ module.exports = {
     sequelize,
     User,
     Project,
-    Ticket,
+    Ticket
 };
