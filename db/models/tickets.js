@@ -3,7 +3,7 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize) =>{
-    const Ticket = sequelize.define('Ticket',{ //modelado de la DB, misma estruct que en la tabla
+    const Ticket = sequelize.define('Tickets',{ //modelado de la DB, misma estruct que en la tabla
         id:{
             type: DataTypes.INTEGER,
             autoIncrement: true,

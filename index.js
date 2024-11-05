@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const swagger = require('swagger-ui-express');
 
 const {
     sequelize
@@ -26,6 +27,9 @@ app.on('error',(err)=>{
 app.use('/api/users', require('./routes/users'));//ok
 app.use('/api/projects', require('./routes/projects'));
 app.use('/api/tickets', require('./routes/tickets'));
+
+//Docuemntar los endpoints en esta ruta a partir del json
+app.use('/api/docs', swagger.serve, swagger.setup(require("./swagger.json")));
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`Server started on port ${process.env.PORT || 3000}`);
