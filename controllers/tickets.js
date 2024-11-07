@@ -1,8 +1,5 @@
 const TicketService = require('../services/tickets');
 const fs = require('fs');
-const MailService = require('../services/mail');
-const ProjectService = require('../services/projects');
-const handlebars = require('handlebars');
 const CloudinaryService = require('../services/cloudinary');
 
 const getTickets = async(req,res) =>{
@@ -45,26 +42,6 @@ const getTicketById = async(req,res) =>{
 
         //3 - se agrega el ticket - se joinea con el ORM
         const aggregatedPost = await TicketService.getTicketById(ticket.id);
-            
-        //Pasarlo al proyecto
-        //template del html -Handlebars
-        const templatePath = path.resolve(__dirname, '../templates/email.template.hbs');
-        const templateSource = fs.readFileSync(templatePath, 'utf8');
-        const template = handlebars.compile(templateSource);
-
-        const htmlContent = template({
-            project: aggregatedPost.title,
-            authorName: aggregatedPost.author.username,
-            productName: aggregatedPost.product.description,
-            content: aggregatedPost.content,
-            imageUrl: aggregatedPost.imageUrl
-        });
-
-        //4 El mail
-        await MailService.sendMail(
-            aggregatedPost.author.email,//el mail del q creo el proyecto
-            `Tu invitación ${aggregatedPost.title} se ha enviado correctamente!`,
-            htmlContent)
 
         res.status(200).json(ticket);
     } catch(err){

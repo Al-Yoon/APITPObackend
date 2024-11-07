@@ -51,7 +51,7 @@ sequelize.sync()
         console.log("Database & Tables created");
     })
     .catch(err =>{
-        console.log('Error. ', err);
+        console.log('Error ', err);
     });
 
 module.exports = {

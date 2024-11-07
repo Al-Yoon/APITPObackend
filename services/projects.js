@@ -1,4 +1,4 @@
-const {Project} = require('../db/db')
+const {Project, User, Ticket} = require('../db/db')
 
 const getProjects = async ()=> await Project.findAll(); //select * from tickets
 const getProjectById = async ()=> await Project.findByPk(id); // select * from tickets where id = id
