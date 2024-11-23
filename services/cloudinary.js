@@ -7,6 +7,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET,
 });
 
+//lOGICA DE SUBIDA DE IMAGEN
 const uploadImage = async (imageBuffer) => {
 
     const uploadResult = new Promise((resolve, reject) => {

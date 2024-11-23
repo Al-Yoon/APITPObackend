@@ -1,5 +1,5 @@
 const {validationResult} = require('express-validator');
-
+//validaciond esde el back, middleware
 const validateRequest = (req,res,next) =>{
     const errorsOcurred = validationResult(req);
     if(!errorsOcurred.isEmpty()){
