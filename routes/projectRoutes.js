@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const ProjectController = require('../controllers/projects');
+const ProjectController = require('../controllers/projectController');
 const jwtValidator = require("../middlewares/jwtValidator");
 const multer = require("multer");
 const {check} = require('express-validator');

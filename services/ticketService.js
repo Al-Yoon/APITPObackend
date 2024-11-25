@@ -1,7 +1,7 @@
 const {Ticket, Project, User} = require('../db/db');
-const tickets = require('../db/models/tickets');
+const tickets = require('../db/models/Ticket');
 
-const ticketsAtributes = ['id','descpricion','fecha','monto','imageUrl'];
+const ticketsAtributes = ['id','descripcion','fecha','monto','imageUrl'];
 
 const ticketsInclude = [{
     model: Project,

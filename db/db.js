@@ -1,10 +1,9 @@
-const {
-    Sequelize
-} = require('sequelize');
-const UserModel = require("../db/models/users");
-const ProjectModel = require("../db/models/projects");
-const TicketModel = require("../db/models/tickets");
-const dotenv = require("dotenv");
+const { Sequelize } = require('sequelize');
+const UserModel = require('./models/User');
+const ProjectModel = require('./models/Project');
+const UserProjectModel = require('./models/UserProject');
+const TicketModel = require('./models/Ticket');
+const dotenv = require('dotenv');
 dotenv.config();
 
 //Conexion del ORM a la DB -usando .env
@@ -13,50 +12,42 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
     dialect:'mysql',
 });
 
-//Inicializacion modelos
-const User = UserModel(sequelize,Sequelize);
-const Project = ProjectModel(sequelize,Sequelize);
-const Ticket = TicketModel(sequelize,Sequelize);
+// Inicialización de modelos
+const User = UserModel(sequelize);
+const Project = ProjectModel(sequelize);
+const UserProject = UserProjectModel(sequelize);
+const Ticket = TicketModel(sequelize);
 
-//Quedan Relaciones -Definirlas
-User.hasMany(Project,{
-    foreignKey: 'usuarioId',
-    sourceKey: 'id',
-    onDelete: 'CASCADE'
+// Definir relaciones
+User.belongsToMany(Project, { through: UserProject, foreignKey: 'userId' });
+Project.belongsToMany(User, { through: UserProject, foreignKey: 'projectId' });
+
+Project.hasMany(Ticket, {
+  foreignKey: 'projectId',
+  sourceKey: 'id',
+  onDelete: 'CASCADE'
 });
 
-Project.belongsTo(User,{
-    foreignKey: 'usuarioId',
-    targetKey: 'id',
-    onDelete: 'CASCADE',
-    as: 'usuario'
+Ticket.belongsTo(Project, {
+  foreignKey: 'projectId',
+  targetKey: 'id',
+  onDelete: 'CASCADE',
+  as: 'project'
 });
 
-Project.hasMany(Ticket,{
-    foreignKey: 'projectId',
-    sourceKey: 'id',
-    onDelete: 'CASCADE'
-});
-
-Ticket.belongsTo(Project,{
-    foreignKey:'projectId',
-    targetKey: 'id',
-    onDelete: 'CASCADE',
-    as: 'project'
-});
-
-//Metodo para sincronizar
+// Método para sincronizar
 sequelize.sync()
-    .then(() =>{
-        console.log("Database & Tables created");
-    })
-    .catch(err =>{
-        console.log('Error ', err);
-    });
+  .then(() => {
+    console.log('Database & Tables created');
+  })
+  .catch(err => {
+    console.log('Error ', err);
+  });
 
 module.exports = {
-    sequelize,
-    User,
-    Project,
-    Ticket
+  sequelize,
+  User,
+  Project,
+  UserProject,
+  Ticket
 };
