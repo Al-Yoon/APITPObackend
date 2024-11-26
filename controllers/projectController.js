@@ -41,28 +41,7 @@ class ProjectController {
   async createProject(req, res) {
     try {
       const project = await ProjectService.createProject(req.body);
-
-      // template del html - Handlebars
-      const templatePath = path.resolve(__dirname, '../templates/email.template.hbs');
-      const aggregatedProject = await ProjectService.getProjectById(project.id);
-      const templateSource = fs.readFileSync(templatePath, 'utf8');
-      const template = handlebars.compile(templateSource);
-
-      const htmlContent = template({
-        proyecto: aggregatedProject.nombre,
-        nombreRemitente: aggregatedProject.usuarioId,
-        descripcion: aggregatedProject.descripcion,
-        fecha: aggregatedProject.fecha
-      });
-
-      // Enviar el mail
-      await MailService.sendMail(
-        aggregatedProject.usuarioId.email, // el mail del que creó el proyecto
-        `Tu invitación ${aggregatedProject.nombre} se ha enviado correctamente!`,
-        htmlContent
-      );
-
-      return res.status(201).json(aggregatedProject);
+      return res.status(201).json(project);
     } catch (err) {
       console.error(err);
       return res.status(500).json({
@@ -112,6 +91,49 @@ class ProjectController {
       console.error(err);
       return res.status(500).json({
         method: "deleteProject",
+        message: err,
+      });
+    }
+  }
+
+  async notify(req, res) {
+    try {
+      const { projectId, userId } = req.body;
+      const project = await ProjectService.getProjectById(projectId);
+      const user = await UserService.getUserById(userId);
+
+      if (!project || !user) {
+        return res.status(404).json({
+          message: "Project or User not found"
+        });
+      }
+
+      // template del html - Handlebars
+      const templatePath = path.resolve(__dirname, '../templates/email.template.hbs');
+      const templateSource = fs.readFileSync(templatePath, 'utf8');
+      const template = handlebars.compile(templateSource);
+
+      const htmlContent = template({
+        proyecto: project.nombre,
+        nombreRemitente: user.nombre,
+        descripcion: project.descripcion,
+        fecha: project.fecha
+      });
+
+      // Enviar el mail
+      await MailService.sendMail(
+        user.email, // el mail del usuario notificado
+        `Notificación de proyecto: ${project.nombre}`,
+        htmlContent
+      );
+
+      return res.status(200).json({
+        message: "Notification sent successfully"
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({
+        method: "notify",
         message: err,
       });
     }
