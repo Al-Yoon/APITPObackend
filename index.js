@@ -22,9 +22,11 @@ app.on('error', (err) => {
     console.log('Server error: ', err);
 });
 
-app.use('/api/users', authRoutes);
-app.use('/api/projects', projectRoutes);
-app.use('/api/tickets', ticketRoutes);
+
+app.use('/api/users', require("./routes/userRoutes"));
+app.use('/api/projects', require("./routes/projectRoutes"));
+app.use('/api/tickets', require("./routes/ticketRoutes"));
+app.use('api/login'), require("./routes/authRoutes");
 
 // Documentar los endpoints en esta ruta a partir del json
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));

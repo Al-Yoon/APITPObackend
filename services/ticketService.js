@@ -19,6 +19,7 @@ const getTicketById = async ()=> await Ticket.findByPk(id,{
 const createTicket = async ()=> await Ticket.create(ticket); // insert into tickets values ...
 
 const updateTicket = async ()=> await Ticket.updateTicket(id);
+
 const deleteTicket = async ()=> await Ticket.deleteTicket(id);
 
 module.exports ={

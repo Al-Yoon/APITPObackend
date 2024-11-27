@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../db/models/User');
+const AuthService = require('../services/authenticationService');
 
 exports.register = async (req, res) => {
   const { nombre, apellido, email, contrasenia } = req.body;
@@ -14,7 +15,39 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.login = async(req, res) => {
+  try {
+    const { email, contrasenia } = req.body;
+    // Validar user
+    let isUserRegistered = await AuthService.hasValidateCredentials(email, contrasenia);
+    if (isUserRegistered) {
+      const user = await UserService.getUserByEmail(email);
+
+      // Genero el token de sesión
+      const token = jwt.sign(user.toJSON(), process.env.PRIVATE_KEY, {
+        expiresIn: "1d",
+      });
+
+      return res.status(200).json({
+        status: 200,
+        token,
+        message: "Token created successfully"
+      });
+    } else {
+      return res.status(401).json({
+        message: "Unauthorized.",
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      method: "login",
+      message: err.message,
+    });
+  }
+}
+
+/* exports.login = async (req, res) => {
   const { email, contrasenia } = req.body;
 
   try {
@@ -32,5 +65,4 @@ exports.login = async (req, res) => {
     res.json({ message: 'Login successful', token });
   } catch (error) {
     res.status(400).json({ error: error.message });
-  }
-};
+  } */
