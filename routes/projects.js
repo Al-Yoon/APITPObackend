@@ -7,12 +7,12 @@ const validateRequest = require('../middlewares/request_validator');
 
 const router = Router();
 
-router.get('/projects', ProjectController.getProjects);//http://localhost:8080/api/projects/ - GET PROJECTS
+router.get('/', ProjectController.getProjects);//http://localhost:8080/api/projects/ - GET PROJECTS
 
 router.get('/:id', ProjectController.getProjectById); //http://localhost:8080/api/projects/:id - GET PROJECT POR ID
 
 //lo que necesito crear para el proyecto
-router.post('/post/projects',[
+router.post('/',[
     check('project.nombre').not().isEmpty(),
     check('project.descripcion').not().isEmpty(),
     check('project.fecha').not().isEmpty(),

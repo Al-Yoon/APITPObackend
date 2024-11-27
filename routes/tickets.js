@@ -9,9 +9,9 @@ const router = Router();
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
 
-router.get('/tickets', TicketController.getTickets);//http://localhost:8080/api/tickets/ - GET TICKETS
+router.get('/', TicketController.getTickets);//http://localhost:8080/api/tickets/ - GET TICKETS
 
-router.post('/post/tickets',
+router.post('/',
     check("descripcion").not().isEmpty(),
     check("fecha").not().isEmpty(),
     check("monto").not().isEmpty(),
