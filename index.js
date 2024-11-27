@@ -5,7 +5,7 @@ const { sequelize } = require('./db/db');
 const authRoutes = require('./routes/authRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/users');
 
 dotenv.config();
 
@@ -23,10 +23,10 @@ app.on('error', (err) => {
 });
 
 
-app.use('/api/users', require("./routes/userRoutes"));
+app.use('/api/users', require("./routes/users"));
 app.use('/api/projects', require("./routes/projectRoutes"));
 app.use('/api/tickets', require("./routes/ticketRoutes"));
-app.use('api/login'), require("./routes/authRoutes");
+app.use('api/login', require("./routes/authRoutes"));
 
 // Documentar los endpoints en esta ruta a partir del json
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));

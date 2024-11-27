@@ -7,7 +7,7 @@ const validateRequest = require('../middlewares/request_validator');
 
 const router = Router();
 
-router.get('/projects', ProjectController.getProjects);//http://localhost:8080/api/projects/ - GET PROJECTS
+router.get('/', ProjectController.getProjects);//http://localhost:8080/api/projects/ - GET PROJECTS
 
 router.get('/:id', ProjectController.getProjectById); //http://localhost:8080/api/projects/:id - GET PROJECT POR ID
 

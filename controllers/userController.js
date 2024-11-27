@@ -1,6 +1,6 @@
 const UserService = require('../services/userService');
 const jwt = require("jsonwebtoken");
-const AuthService = require("../services/authService");
+const authenticationService = require("../services/authenticationService");
 
 class UserController {
   async getUsers(req, res) {
@@ -54,7 +54,7 @@ class UserController {
     try {
       const { email, contrasenia } = req.body;
       // Validar user
-      let isUserRegistered = await AuthService.hasValidateCredentials(email, contrasenia);
+      let isUserRegistered = await authenticationService.hasValidateCredentials(email, contrasenia);
       if (isUserRegistered) {
         const user = await UserService.getUserByEmail(email);
 

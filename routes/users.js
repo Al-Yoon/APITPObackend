@@ -6,7 +6,7 @@ const jwtValidator = require('../middlewares/jwtValidator');
 
 const router = Router();
 
-router.get('/users', userController.getUsers); // http://localhost:8080/api/users/ - GET USUARIOS
+router.get('/', userController.getUsers); // http://localhost:8080/api/users/ - GET USUARIOS
 
 // Lo que necesito cargar para el user
 router.post('/post/user', [
