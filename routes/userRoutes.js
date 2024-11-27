@@ -6,23 +6,16 @@ const jwtValidator = require('../middlewares/jwtValidator');
 
 const router = Router();
 
-router.get('/', userController.getUsers); // http://localhost:8080/api/users/ - GET USUARIOS
+router.get('/users', userController.getUsers); // http://localhost:8080/api/users/ - GET USUARIOS
 
 // Lo que necesito cargar para el user
-router.post('/', [
+router.post('/post/user', [
   check('nombre').not().isEmpty(),
   check('apellido').not().isEmpty(),
   check('email').isEmail(),
   check('contrasenia').isLength({ min: 6 }),
   validateRequest, // validamos desde el middleware
 ], userController.createUser); // http://localhost:8080/api/users/ - POST USUARIOS
-
-// Lo que necesito cargar para el login
-router.post('/login', [
-  check('email').isEmail(),
-  check('contrasenia').not().isEmpty(),
-  validateRequest, // validamos desde el middleware
-], userController.login); // http://localhost:8080/api/users/login - POST PARA EL LOGIN
 
 router.get('/:id', userController.getUserById); // http://localhost:8080/api/users/:id - GET USUARIOS POR ID
 
