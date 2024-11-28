@@ -15,7 +15,7 @@ router.post('/register', [
 ], authController.register); // http://localhost:8080/api/register - POST PARA EL REGISTER
 
 // Lo que necesito cargar para el login
-router.post('/login', [
+router.post('/signin', [
   check('email').isEmail(),
   check('contrasenia').not().isEmpty(),
   validateRequest,  // validamos desde el middleware

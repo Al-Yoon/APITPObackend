@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../db/models/User');
+const UserService = require('../services/userService');
 const AuthService = require('../services/authenticationService');
 
 exports.register = async (req, res) => {
@@ -8,7 +8,7 @@ exports.register = async (req, res) => {
 
   try {
     const hashedPassword = await bcrypt.hash(contrasenia, 10);
-    const user = await User.create({ nombre, apellido, email, contrasenia: hashedPassword });
+    const user = await UserService.createUser({ nombre, apellido, email, contrasenia: hashedPassword });
     res.status(201).json({ message: 'User created successfully', user });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -21,10 +21,10 @@ exports.login = async(req, res) => {
     // Validar user
     let isUserRegistered = await AuthService.hasValidateCredentials(email, contrasenia);
     if (isUserRegistered) {
-      const user = await UserService.getUserByEmail(email);
+      const user = await UserService.login(email);
 
       // Genero el token de sesión
-      const token = jwt.sign(user.toJSON(), process.env.PRIVATE_KEY, {
+     const token = jwt.sign(user.toJSON(), process.env.PRIVATE_KEY, {
         expiresIn: "1d",
       });
 
@@ -66,3 +66,5 @@ exports.login = async(req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   } */
+
+
