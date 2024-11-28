@@ -9,7 +9,7 @@ const router = Router();
 router.get('/', userController.getUsers); // http://localhost:8080/api/users/ - GET USUARIOS
 
 // Lo que necesito cargar para el user
-router.post('/post/user', [
+router.post('/', [
   check('nombre').not().isEmpty(),
   check('apellido').not().isEmpty(),
   check('email').isEmail(),

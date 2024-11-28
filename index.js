@@ -2,9 +2,9 @@ const express = require('express');
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const { sequelize } = require('./db/db');
-const authRoutes = require('./routes/authRoutes');
-const projectRoutes = require('./routes/projectRoutes');
-const ticketRoutes = require('./routes/ticketRoutes');
+const authRoutes = require('./routes/auth');
+const projectRoutes = require('./routes/projects');
+const ticketRoutes = require('./routes/tickets');
 const userRoutes = require('./routes/users');
 
 dotenv.config();
@@ -24,9 +24,9 @@ app.on('error', (err) => {
 
 
 app.use('/api/users', require("./routes/users"));
-app.use('/api/projects', require("./routes/projectRoutes"));
-app.use('/api/tickets', require("./routes/ticketRoutes"));
-app.use('api/login', require("./routes/authRoutes"));
+app.use('/api/projects', require("./routes/projects"));
+app.use('/api/tickets', require("./routes/tickets"));
+app.use('/api/login', require("./routes/auth"));
 
 // Documentar los endpoints en esta ruta a partir del json
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));

@@ -14,16 +14,21 @@ class TicketController {
   }
 
   async getTicketById(req, res) {
-    const { id } = req.params;
     try {
-      const ticket = await TicketService.getTicketById(Number(id));
-      if (!ticket) res.status(404).json({
-        message: "Ticket Not Found"
-      });
-      res.status(200).json(ticket);
+      const { id } = req.params;
+      let ticket = await TicketService.getTicketById(Number(id));
+      if (!ticket) {
+        return res.status(404).json({
+          method: "getTicketById",
+          message: "Ticket not found"
+        });
+      }
+      return res.status(200).json(ticket);
     } catch (err) {
-      res.status(500).json({
-        message: err.message
+      console.log(err);
+      return res.status(500).json({
+        method: "getTicketById",
+        message: err,
       });
     }
   }
