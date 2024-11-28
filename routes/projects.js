@@ -13,21 +13,21 @@ router.get('/:id', ProjectController.getProjectById); //http://localhost:8080/ap
 
 //lo que necesito crear para el proyecto
 router.post('/',[
-    //check('project.nombre')//.not().isEmpty(),
-    //check('project.descripcion').not().isEmpty(),
-    //check('project.fecha').not().isEmpty(),
-    //validateRequest
+    check('project.nombre').not().isEmpty(),
+    check('project.descripcion').not().isEmpty(),
+    check('project.fecha').not().isEmpty(),
+    validateRequest
     //no va la img pq no se crea con la img, se agrega dsp
-    ],ProjectController.createProject);//,jwtValidator,ProjectController.createProject); //http://localhost:8080/api/projects/ - POST PROJECTS
+    ],/*jwtValidator,*/ ProjectController.createProject); //http://localhost:8080/api/projects/ - POST PROJECTS
 
-router.put('/:id',/*jwtValidator,*/ProjectController.updateProject); //http://localhost:8080/api/projects/:id  - PUT PROYECTOS
+router.put('/:id',/*jwtValidator,*/ ProjectController.updateProject); //http://localhost:8080/api/projects/:id  - PUT PROYECTOS
 
-router.delete('/:id',jwtValidator,ProjectController.deleteProject); //http://localhost:8080/api/projects/:id - DELETE PROYECTOS
+router.delete('/:id',/* jwtValidator,*/ ProjectController.deleteProject); //http://localhost:8080/api/projects/:id - DELETE PROYECTOS
 
 router.post('/notify', [
     check('projectId').not().isEmpty(),
     check('userId').not().isEmpty(),
     validateRequest
-  ], jwtValidator, ProjectController.notify); // http://localhost:8080/api/projects/notify - POST NOTIFY
+  ], /* jwtValidator,*/ ProjectController.notify); // http://localhost:8080/api/projects/notify - POST NOTIFY
 
 module.exports = router;
