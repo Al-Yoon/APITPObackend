@@ -19,8 +19,25 @@ const UserProject = UserProjectModel(sequelize);
 const Ticket = TicketModel(sequelize);
 
 // Definir relaciones
-User.belongsToMany(Project, { through: UserProject, foreignKey: 'userId' });
-Project.belongsToMany(User, { through: UserProject, foreignKey: 'projectId' });
+UserProject.belongsToMany(Project, { 
+  through: UserProject, 
+  foreignKey: 'userId',
+   onDelete:'CASCADE'
+});
+
+Project.belongsTo(User);
+
+User.hasMany(Project);
+
+User.hasMany(Ticket,{
+  foreignKey: 'id',
+});
+
+Project.hasMany(UserProject, {
+  foreignKey: 'projectId',
+  targetKey: 'id',
+  onDelete: 'CASCADE'
+});
 
 Project.hasMany(Ticket, {
   foreignKey: 'projectId',

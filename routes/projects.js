@@ -13,9 +13,9 @@ router.get('/:id', ProjectController.getProjectById); //http://localhost:8080/ap
 
 //lo que necesito crear para el proyecto
 router.post('/',[
-    check('project.nombre').not().isEmpty(),
+    /*check('project.nombre').not().isEmpty(),
     check('project.descripcion').not().isEmpty(),
-    check('project.fecha').not().isEmpty(),
+    check('project.fecha').not().isEmpty(),*/
     validateRequest
     //no va la img pq no se crea con la img, se agrega dsp
     ],/*jwtValidator,*/ ProjectController.createProject); //http://localhost:8080/api/projects/ - POST PROJECTS

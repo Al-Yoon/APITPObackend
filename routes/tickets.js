@@ -12,10 +12,10 @@ const upload = multer({storage: storage});
 router.get('/', TicketController.getTickets);//http://localhost:8080/api/tickets/ - GET TICKETS
 
 router.post('/',
-    check("descripcion").not().isEmpty(),
+    /* check("descripcion").not().isEmpty(),
     check("fecha").not().isEmpty(),
     check("monto").not().isEmpty(),
-    upload.single('file'),
+    upload.single('file'), */
     validateRequest,
     /*jwtValidator,*/TicketController.createTicket); //http://localhost:8080/api/tickets/ - POST TICKETS
 

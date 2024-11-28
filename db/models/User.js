@@ -10,7 +10,8 @@ module.exports = (sequelize) => {
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
     email: DataTypes.STRING,
-    contrasenia: DataTypes.STRING
+    contrasenia: DataTypes.STRING,
+    saldo: DataTypes.FLOAT
   });
 
   return User;

@@ -21,6 +21,6 @@ router.get('/:id', userController.getUserById); // http://localhost:8080/api/use
 
 router.put('/:id', /*jwtValidator,*/ userController.updateUser); // http://localhost:8080/api/users/:id - PUT USERS
 
-router.delete('/:id', jwtValidator, userController.deleteUser); // http://localhost:8080/api/users/:id - DELETE USERS
+router.delete('/:id',/* jwtValidator,*/ userController.deleteUser); // http://localhost:8080/api/users/:id - DELETE USERS
 
 module.exports = router;
