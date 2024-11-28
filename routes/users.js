@@ -19,7 +19,7 @@ router.post('/', [
 
 router.get('/:id', userController.getUserById); // http://localhost:8080/api/users/:id - GET USUARIOS POR ID
 
-router.put('/:id', jwtValidator, userController.updateUser); // http://localhost:8080/api/users/:id - PUT USERS
+router.put('/:id', /*jwtValidator,*/ userController.updateUser); // http://localhost:8080/api/users/:id - PUT USERS
 
 router.delete('/:id', jwtValidator, userController.deleteUser); // http://localhost:8080/api/users/:id - DELETE USERS
 

@@ -20,7 +20,7 @@ router.post('/',[
     //no va la img pq no se crea con la img, se agrega dsp
     ],ProjectController.createProject);//,jwtValidator,ProjectController.createProject); //http://localhost:8080/api/projects/ - POST PROJECTS
 
-router.put('/:id',jwtValidator,ProjectController.updateProject); //http://localhost:8080/api/projects/:id  - PUT PROYECTOS
+router.put('/:id',/*jwtValidator,*/ProjectController.updateProject); //http://localhost:8080/api/projects/:id  - PUT PROYECTOS
 
 router.delete('/:id',jwtValidator,ProjectController.deleteProject); //http://localhost:8080/api/projects/:id - DELETE PROYECTOS
 
