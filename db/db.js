@@ -6,10 +6,10 @@ const TicketModel = require('./models/Ticket');
 const dotenv = require('dotenv');
 dotenv.config();
 
-//Conexion del ORM a la DB -usando .env
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD,{
-    host: 'localhost',
-    dialect:'mysql',
+// Conexión del ORM a la DB - usando .env
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: 'localhost',
+  dialect: 'mysql',
 });
 
 // Inicialización de modelos
@@ -19,25 +19,11 @@ const UserProject = UserProjectModel(sequelize);
 const Ticket = TicketModel(sequelize);
 
 // Definir relaciones
-UserProject.belongsToMany(Project, { 
-  through: UserProject, 
-  foreignKey: 'userId',
-   onDelete:'CASCADE'
-});
-
-Project.belongsTo(User);
+User.belongsToMany(Project, { through: UserProject, foreignKey: 'userId', onDelete: 'CASCADE' });
+Project.belongsToMany(User, { through: UserProject, foreignKey: 'projectId', onDelete: 'CASCADE' });
 
 User.hasMany(Project);
-
-User.hasMany(Ticket,{
-  foreignKey: 'id',
-});
-
-Project.hasMany(UserProject, {
-  foreignKey: 'projectId',
-  targetKey: 'id',
-  onDelete: 'CASCADE'
-});
+Project.belongsTo(User);
 
 Project.hasMany(Ticket, {
   foreignKey: 'projectId',
@@ -60,14 +46,6 @@ sequelize.sync()
   .catch(err => {
     console.log('Error ', err);
   });
-  
-/*   sequelize.sync({ force: true }) // CUIDADO: Esto eliminará las tablas existentes y las recreará.
-  .then(() => {
-    console.log('Database & Tables created');
-  })
-  .catch(err => {
-    console.error('Error creating tables: ', err);
-  }); */
 
 module.exports = {
   sequelize,

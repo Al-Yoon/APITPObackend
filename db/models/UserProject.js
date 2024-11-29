@@ -7,10 +7,8 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-
     projectId: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       references: {
         model: 'Projects',
         key: 'id',
@@ -28,6 +26,16 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       defaultValue: false,
       allowNull: true,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
   });
 

@@ -28,9 +28,9 @@ const getUsersByProject = async (req,res) => {
     }
   };
 
-  const removeUser = async (req,res) => {
+  const removeUserFromProject = async (req,res) => {
     try {
-      const projects = await UsersProject.removeUser(req.body.userid, req.body.projectId);
+      const projects = await UsersProject.removeUserFromProyect(req.body.id, req.body.id);
       res.status(200).json(projects);
     } catch (err) {
       res.status(500).json({
@@ -54,5 +54,5 @@ const getUsersByProject = async (req,res) => {
     getUsersByProject,
     getProjectsByUser,
     addUser,
-    removeUser
+    removeUserFromProject
 };
