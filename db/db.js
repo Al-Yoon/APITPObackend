@@ -60,6 +60,14 @@ sequelize.sync()
   .catch(err => {
     console.log('Error ', err);
   });
+  
+/*   sequelize.sync({ force: true }) // CUIDADO: Esto eliminará las tablas existentes y las recreará.
+  .then(() => {
+    console.log('Database & Tables created');
+  })
+  .catch(err => {
+    console.error('Error creating tables: ', err);
+  }); */
 
 module.exports = {
   sequelize,

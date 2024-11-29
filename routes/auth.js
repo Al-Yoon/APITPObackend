@@ -19,6 +19,6 @@ router.post('/signin', [
   check('email').isEmail(),
   check('contrasenia').not().isEmpty(),
   validateRequest,  // validamos desde el middleware
-], authController.login); // http://localhost:8080/api/login - POST PARA EL LOGIN
+], authController.login); // http://localhost:8080/api/signin - POST PARA EL LOGIN
 
 module.exports = router;

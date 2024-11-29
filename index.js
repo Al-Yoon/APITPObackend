@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');
 const ticketRoutes = require('./routes/tickets');
 const userRoutes = require('./routes/users');
+const userProjectRoutes = require('./routes/usersProject');
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use('/api/users', require("./routes/users"));
 app.use('/api/projects', require("./routes/projects"));
 app.use('/api/tickets', require("./routes/tickets"));
 app.use('/api/login', require("./routes/auth"));
+app.use('/api/userProject', require("./routes/usersProject"));
 
 // Documentar los endpoints en esta ruta a partir del json
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));
