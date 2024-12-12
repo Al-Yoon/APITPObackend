@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors'); // Importa el paquete cors
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const { sequelize } = require('./db/db');
@@ -12,6 +13,7 @@ dotenv.config();
 
 const app = express();
 
+app.use(cors()); // Usa el middleware de cors
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -23,12 +25,11 @@ app.on('error', (err) => {
     console.log('Server error: ', err);
 });
 
-
-app.use('/api/users', require("./routes/users"));
-app.use('/api/projects', require("./routes/projects"));
-app.use('/api/tickets', require("./routes/tickets"));
-app.use('/api/login', require("./routes/auth"));
-app.use('/api/userProject', require("./routes/usersProject"));
+app.use('/api/users', userRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/tickets', ticketRoutes);
+app.use('/api/login', authRoutes);
+app.use('/api/userProject', userProjectRoutes);
 
 // Documentar los endpoints en esta ruta a partir del json
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));

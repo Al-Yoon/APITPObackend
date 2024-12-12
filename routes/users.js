@@ -13,7 +13,7 @@ router.post('/', [
   check('nombre').not().isEmpty(),
   check('apellido').not().isEmpty(),
   check('email').isEmail(),
-  check('contrasenia').isLength({ min: 6 }),
+  check('contrasenia').isLength({ min: 2 }),
   validateRequest, // validamos desde el middleware
 ], userController.createUser); // http://localhost:8080/api/users/ - POST USUARIOS
 

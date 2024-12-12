@@ -23,7 +23,11 @@ const getUserByEmail = async(email) => await User.findOne({
   }
 });
 const createUser = async (user) => await User.create(user);// insert into users values ...
-const deleteUser = async (id) => await User.destroy({ where: { id } });
+const deleteUserById = async(userId) => await User.destroy({
+  where:{
+      id:userId
+  },
+});
 
 module.exports = {
   getUsers,
@@ -32,5 +36,5 @@ module.exports = {
   login,
   createUser,
   updateUser,
-  deleteUser  
+  deleteUserById  
 };

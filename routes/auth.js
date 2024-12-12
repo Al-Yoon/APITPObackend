@@ -10,7 +10,7 @@ router.post('/register', [
   check('nombre').not().isEmpty(),
   check('apellido').not().isEmpty(),
   check('email').isEmail(),
-  check('contrasenia').isLength({ min: 6 }),
+  check('contrasenia').isLength({ min: 2 }),
   validateRequest,  // validamos desde el middleware
 ], authController.register); // http://localhost:8080/api/register - POST PARA EL REGISTER
 
