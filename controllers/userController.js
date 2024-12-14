@@ -1,6 +1,7 @@
 const UserService = require('../services/userService');
 const jwt = require("jsonwebtoken");
 const AuthService = require("../services/authService");
+const express = require("express");
 
 class UserController {
   async getUsers(req, res) {
@@ -60,7 +61,9 @@ class UserController {
 
         // Genero el token de sesión
         const token = jwt.sign(user.toJSON(), process.env.PRIVATE_KEY, {
-          expiresIn: "1d",
+          expiresIn: '1d',
+          user,
+          PRIVATE_KEY,
         });
 
         return res.status(200).json({
@@ -70,7 +73,7 @@ class UserController {
         });
       } else {
         return res.status(401).json({
-          message: "Unauthorized.",
+          message: "Unauthorized."
         });
       }
     } catch (err) {
