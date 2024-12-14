@@ -68,14 +68,16 @@ class UserController {
 
         return res.status(200).json({
           status: 200,
-          token,
+          token: token, // Corrected this line
           message: "Token created successfully"
         });
+        
       } else {
         return res.status(401).json({
           message: "Unauthorized."
         });
       }
+
     } catch (err) {
       console.error(err);
       return res.status(500).json({
