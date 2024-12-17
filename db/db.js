@@ -6,10 +6,10 @@ const TicketModel = require('./models/Ticket');
 const dotenv = require('dotenv');
 dotenv.config();
 
-//Conexion del ORM a la DB -usando .env
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD,{
-    host: 'localhost',
-    dialect:'mysql',
+// Conexión del ORM a la DB - usando .env
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+  host: 'localhost',
+  dialect: 'mysql',
 });
 
 // Inicialización de modelos
@@ -19,8 +19,11 @@ const UserProject = UserProjectModel(sequelize);
 const Ticket = TicketModel(sequelize);
 
 // Definir relaciones
-User.belongsToMany(Project, { through: UserProject, foreignKey: 'userId' });
-Project.belongsToMany(User, { through: UserProject, foreignKey: 'projectId' });
+User.belongsToMany(Project, { through: UserProject, foreignKey: 'userId', onDelete: 'CASCADE' });
+Project.belongsToMany(User, { through: UserProject, foreignKey: 'projectId', onDelete: 'CASCADE' });
+
+User.hasMany(Project);
+Project.belongsTo(User);
 
 Project.hasMany(Ticket, {
   foreignKey: 'projectId',

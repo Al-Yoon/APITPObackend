@@ -14,43 +14,40 @@ class TicketController {
   }
 
   async getTicketById(req, res) {
-    const { id } = req.params;
     try {
-      const ticket = await TicketService.getTicketById(Number(id));
-      if (!ticket) res.status(404).json({
-        message: "Ticket Not Found"
-      });
-      res.status(200).json(ticket);
+      const { id } = req.params;
+      let ticket = await TicketService.getTicketById(Number(id));
+      if (!ticket) {
+        return res.status(404).json({
+          method: "getTicketById",
+          message: "Ticket not found"
+        });
+      }
+      return res.status(200).json(ticket);
     } catch (err) {
-      res.status(500).json({
-        message: err.message
+      console.log(err);
+      return res.status(500).json({
+        method: "getTicketById",
+        message: err,
       });
     }
   }
-
-  async createTicket(req, res) {
-    const fileBuffer = req.file.buffer; // file.buffer - Tomamos la data de la request
-    try {
-      // 1 - Cloudinary hace el upload de la img
-      const urlImg = await CloudinaryService.uploadImage(fileBuffer); // llamamos al servicio de cloudinary
-      // 2 - El servicio de ticket crea el ticket
-      const ticket = await TicketService.createTicket({
-        ...req.body, // todo lo del body
-        imageUrl: urlImg
-      });
-
-      // 3 - se agrega el ticket - se joinea con el ORM
-      const aggregatedTicket = await TicketService.getTicketById(ticket.id);
-
-      res.status(200).json(ticket);
+  async createTicket(req, res){
+    /* const fileBuffer = req.file.buffer;
+     */try {
+        /* const urlImg = await CloudinaryService.uploadImage(fileBuffer);
+         */ const ticket = await TicketService.createTicket({...req.body});
+        res.status(200).json(ticket);
     } catch (err) {
-      res.status(500).json({
-        message: err.message
-      });
+        res.status(500).json({
+            message: err.message
+        });
     }
-  }
+};
 
-  async updateTicket(req, res) {
+
+
+  /*async updateTicket(req, res) {
     try {
       let ticket = await TicketService.getTicketById(req.params.id);
       if (!ticket) {
@@ -72,7 +69,20 @@ class TicketController {
         message: err
       });
     }
-  }
+  }*/
+  async updateTicket(req,res){
+    const{
+        id
+    } = req.params;
+    try{
+        const ticket = await TicketService.updateTicket(req.body,Number(id));
+        res.status(200).json(ticket);
+    }catch(err){
+        res.status(500).json({
+            message:err.message
+        });
+    }
+}
 
   async deleteTicket(req, res) {
     try {

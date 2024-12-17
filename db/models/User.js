@@ -10,9 +10,23 @@ module.exports = (sequelize) => {
     nombre: DataTypes.STRING,
     apellido: DataTypes.STRING,
     email: DataTypes.STRING,
-    contrasenia: DataTypes.STRING
+    contrasenia: DataTypes.STRING,
+    saldo: DataTypes.FLOAT,
+    projectId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Projects',
+        key: 'id',
+      }
+    },
+    ticketId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Tickets',
+        key: 'id',
+      }
+    }
   });
 
   return User;
 };
-

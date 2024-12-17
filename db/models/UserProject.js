@@ -7,13 +7,6 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      }
-    },
     projectId: {
       type: DataTypes.INTEGER,
       references: {
@@ -21,14 +14,28 @@ module.exports = (sequelize) => {
         key: 'id',
       }
     },
+    nombre: DataTypes.STRING,
+    apellido: DataTypes.STRING,
+    email: DataTypes.STRING,
     porcentaje: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
       defaultValue: 0
     },
-    pagado: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
+    saldoPagar: {
+      type: DataTypes.FLOAT,
+      defaultValue: false,
+      allowNull: true,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
   });
 

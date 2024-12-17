@@ -1,6 +1,6 @@
 const UserService = require('../services/userService');
 const jwt = require("jsonwebtoken");
-const AuthService = require("../services/authService");
+const authenticationService = require("../services/authenticationService");
 const express = require("express");
 
 class UserController {
@@ -55,7 +55,7 @@ class UserController {
     try {
       const { email, contrasenia } = req.body;
       // Validar user
-      let isUserRegistered = await AuthService.hasValidateCredentials(email, contrasenia);
+      let isUserRegistered = await authenticationService.hasValidateCredentials(email, contrasenia);
       if (isUserRegistered) {
         const user = await UserService.getUserByEmail(email);
 
@@ -87,29 +87,20 @@ class UserController {
     }
   }
 
-  async updateUser(req, res) {
-    try {
-      let user = await UserService.getUserById(req.params.id);
-      if (!user) {
-        return res.status(404).json({
-          method: "updateUser",
-          message: "User not found"
-        });
-      }
-      const modifiedUser = await UserService.updateUser(
-        req.params.id,
-        req.body,
-        user
-      );
-      return res.status(200).json(modifiedUser);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({
-        method: "updateUser",
-        message: err
-      });
+async updateUser(req,res) {
+    const{
+        id
+    } = req.params;
+    try{
+        const user = await UserService.updateUser(req.body,Number(id));
+        res.status(200).json(user);
     }
-  }
+    catch(err){
+        res.status(500).json({
+            message: err.message
+        });
+    }
+}
 
   async deleteUser(req, res) {
     try {

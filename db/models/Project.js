@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 
+
 module.exports = (sequelize) => {
   const Project = sequelize.define('Project', {
     id: {
@@ -16,6 +17,21 @@ module.exports = (sequelize) => {
         model: 'Users',
         key: 'id',
       }
+    },
+    total: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0
+    },
+    saldoPagado: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0
+    },
+    saldoRestante: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      defaultValue: 0
     }
   });
 

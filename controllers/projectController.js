@@ -51,29 +51,19 @@ class ProjectController {
     }
   }
 
-  async updateProject(req, res) {
-    try {
-      let project = await ProjectService.getProjectById(req.params.id);
-      if (!project) {
-        return res.status(404).json({
-          method: "updateProject",
-          message: "Project not found"
+  async updateProject(req,res){
+    const{
+        id
+    } = req.params;
+    try{
+        const project = await ProjectService.updateProject(req.body,Number(id));
+        res.status(200).json(project);
+    }catch(err){
+        res.status(500).json({
+            message:err.message
         });
-      }
-      const modifiedProject = await ProjectService.updateProject(
-        req.params.id,
-        req.body,
-        project
-      );
-      return res.status(200).json(modifiedProject);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({
-        method: "updateProject",
-        message: err
-      });
     }
-  }
+}
 
   async deleteProject(req, res) {
     try {
