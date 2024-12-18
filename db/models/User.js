@@ -8,7 +8,6 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
     nombre: DataTypes.STRING,
-    apellido: DataTypes.STRING,
     email: DataTypes.STRING,
     contrasenia: DataTypes.STRING,
     saldo: DataTypes.FLOAT,

@@ -106,7 +106,7 @@ async updateUser(req,res) {
     try {
       let isUser = await UserService.getUserById(req.params.id);
       if (isUser) {
-        await UserService.deleteUser(req.params.id);
+        await UserService.deleteUserById(req.params.id);
         return res.status(204).json({
           message: "User deleted"
         });
