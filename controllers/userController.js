@@ -2,6 +2,7 @@ const UserService = require('../services/userService');
 const jwt = require("jsonwebtoken");
 const authenticationService = require("../services/authenticationService");
 const express = require("express");
+const bycrypt = require("bcrypt");
 
 class UserController {
   async getUsers(req, res) {
@@ -92,8 +93,13 @@ async updateUser(req,res) {
         id
     } = req.params;
     try{
-        const user = await UserService.updateUser(req.body,Number(id));
-        res.status(200).json(user);
+      console.log(req.body.contrasenia);
+      if(req.body.contrasenia){
+        req.body.contrasenia = bycrypt.hashSync(req.body.contrasenia, 10);
+      }
+      await UserService.updateUser(req.body,Number(id));
+      const user = await UserService.getUserById(Number(id));
+      res.status(200).json(user);
     }
     catch(err){
         res.status(500).json({
