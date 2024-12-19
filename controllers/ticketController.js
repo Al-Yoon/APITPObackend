@@ -37,7 +37,9 @@ class TicketController {
     /* const fileBuffer = req.file.buffer;
      */try {
         /* const urlImg = await CloudinaryService.uploadImage(fileBuffer);
-         */ const ticket = await TicketService.createTicket({...req.body});
+         */ 
+        console.log(req.body);
+        const ticket = await TicketService.createTicket(req.body);
         res.status(200).json(ticket);
     } catch (err) {
         res.status(500).json({
