@@ -111,7 +111,7 @@ class TicketController {
     try {
       let { id } = req.params;
       try {
-        const projects = await UsersProject.getTicketsByProject(Number(id));
+        const projects = await TicketService.getTicketsByProject(Number(id));
         res.status(200).json(projects);
       } catch (err) {
         res.status(500).json({
