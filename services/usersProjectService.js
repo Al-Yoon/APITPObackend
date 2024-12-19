@@ -1,4 +1,5 @@
 const { UsersProject } = require("../db/db");
+const {Project} = require("../db/db");
 
 const addUser = async (usersProject) => await UsersProject.create(usersProject);//ver este parametro
 const getUsersByProject = async (projectId) => await UsersProject.findAll(
@@ -10,12 +11,11 @@ const getUsersByProject = async (projectId) => await UsersProject.findAll(
     }
 );
 
-const getProjectsByUser = async(id) => await UsersProject.findAll(
+const getProjectsByUser = async(id) => await Project.findAll(
     {
         where: {
-        id: id
-        },
-        attributes: ['projectId'],
+        usuarioId: id
+        }
     }
 );
 
