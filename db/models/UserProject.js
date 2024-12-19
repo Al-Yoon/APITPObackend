@@ -15,7 +15,6 @@ module.exports = (sequelize) => {
       }
     },
     nombre: DataTypes.STRING,
-    apellido: DataTypes.STRING,
     email: DataTypes.STRING,
     porcentaje: {
       type: DataTypes.FLOAT,

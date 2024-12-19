@@ -39,11 +39,11 @@ class TicketController {
          */ 
         console.log(req.body);
         const ticket = await TicketService.createTicket(req.body);
-        res.status(200).json(ticket);
+      res.status(200).json(ticket);
     } catch (err) {
-        res.status(500).json({
-            message: err.message
-        });
+      res.status(500).json({
+        message: err.message
+      });
     }
 };
 
@@ -80,11 +80,11 @@ class TicketController {
         const ticket = await TicketService.updateTicket(req.body,Number(id));
         res.status(200).json(ticket);
     }catch(err){
-        res.status(500).json({
-            message:err.message
-        });
+      res.status(500).json({
+        message: err.message
+      });
     }
-}
+  }
 
   async deleteTicket(req, res) {
     try {
@@ -106,6 +106,42 @@ class TicketController {
       });
     }
   }
+
+  async getTicketsByProject(req, res) {
+    try {
+      let { id } = req.params;
+      try {
+        const projects = await UsersProject.getTicketsByProject(Number(id));
+        res.status(200).json(projects);
+      } catch (err) {
+        res.status(500).json({
+          message: err.message
+        });
+      }
+    } catch (err) {
+      res.status(500).json({
+        message: err.message
+      });
+    }
+  }
+
+  async getTicketsByUserId(req, res) {
+    try{
+      let {id} = req.params;
+      try {
+        const ticket = await TicketService.getTicketsByUserId(Number(id));
+        return res.status(200).json(ticket);
+    }catch(err){
+        res.status(500).json({
+            message:err.message
+        });
+    }
+  }catch{
+    res.status(500).json({
+      message:err.message
+    });
+  }
+}
 }
 
 module.exports = new TicketController();
