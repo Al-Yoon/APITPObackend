@@ -7,7 +7,7 @@ const getUsersByProject = async (req,res) => {
     } = req.params;
     try { 
       const usersProject = await UsersProject.getUsersByProject(Number(id));
-      res.status(200).json({body:usersProject});
+      res.status(200).json(usersProject);
     } catch (err) {
       res.status(500).json({
         message: err.message
