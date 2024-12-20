@@ -17,8 +17,10 @@ const uploadImage = async (imageBuffer) => {
       }
       resolve(result.secure_url);
     }).end(imageBuffer);
-  });
-
+  })
+  .then((result) =>{
+    return result;
+  })
   return uploadResult;
 };
 

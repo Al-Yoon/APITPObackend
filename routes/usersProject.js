@@ -6,10 +6,10 @@ const validateRequest = require('../middlewares/request_validator');
 const router = Router();
 
 router.get('/users/:id',
-    UsersProjectController.getUsersByProject);// http://localhost:8080/api/userProject/:id
+    UsersProjectController.getUsersByProject);// http://localhost:8080/api/userProject/users/:id
 
 router.get('/projects/:id',
-    UsersProjectController.getProjectsByUser);
+    UsersProjectController.getProjectsByUser);  //http://localhost:8080/api/userProject/projects/:id
 
 router.delete('/', UsersProjectController.removeUserFromProject);
 

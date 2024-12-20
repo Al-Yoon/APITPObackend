@@ -52,5 +52,5 @@ module.exports = {
   User,
   Project,
   UserProject,
-  Ticket,
+  Ticket
 };

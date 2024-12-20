@@ -15,14 +15,34 @@ const getTicketById = async (id)=> await Ticket.findByPk(id,{
     atrtributes: ticketsAtributes,
     include: ticketsInclude}); // select * from tickets where id = id
 
-const createTicket = async (ticket)=> await Ticket.create(ticket); // insert into tickets values ...
+const createTicket = async ()=> await Ticket.create(ticket); // insert into tickets values ...
 
 const updateTicket = async ()=> await Ticket.updateTicket(id);
 
 const deleteTicket = async ()=> await Ticket.deleteTicket(id);
 
+const getTicketsByProject = async (projectId) => await Ticket.findAll(
+    {
+        where: {
+        proyectId: projectId
+        }
+    }
+);
+
+const getTicketsByUserId = async(id) => await Ticket.findAll(
+    {
+        where: {
+            userId: id
+        },
+    }
+);
+
 module.exports ={
     getTickets,
     getTicketById,
     createTicket,
+    getTicketsByProject,
+    getTicketsByUserId,
+    updateTicket,
+    deleteTicket
 }
