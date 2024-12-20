@@ -13,7 +13,7 @@ class ProjectController {
       console.error(err);
       return res.status(500).json({
         method: "getProjects",
-        message: err
+        message: err.message
       });
     }
   }
@@ -33,7 +33,7 @@ class ProjectController {
       console.log(err);
       return res.status(500).json({
         method: "getProjectById",
-        message: err,
+        message: err.message,
       });
     }
   }
@@ -46,24 +46,22 @@ class ProjectController {
       console.error(err);
       return res.status(500).json({
         method: "createProject",
-        message: err
+        message: err.message
       });
     }
   }
 
-  async updateProject(req,res){
-    const{
-        id
-    } = req.params;
-    try{
-        const project = await ProjectService.updateProject(req.body,Number(id));
-        res.status(200).json(project);
-    }catch(err){
-        res.status(500).json({
-            message:err.message
-        });
+  async updateProject(req, res) {
+    const { id } = req.params;
+    try {
+      const project = await ProjectService.updateProject(req.body, Number(id));
+      res.status(200).json(project);
+    } catch (err) {
+      res.status(500).json({
+        message: err.message
+      });
     }
-}
+  }
 
   async deleteProject(req, res) {
     try {
@@ -81,41 +79,21 @@ class ProjectController {
       console.error(err);
       return res.status(500).json({
         method: "deleteProject",
-        message: err,
+        message: err.message,
       });
     }
   }
 
   async notify(req, res) {
     try {
-      const { projectId, userId } = req.body;
-      const project = await ProjectService.getProjectById(projectId);
-      const user = await UserService.getUserById(userId);
-
-      if (!project || !user) {
-        return res.status(404).json({
-          message: "Project or User not found"
-        });
-      }
-
       // template del html - Handlebars
       const templatePath = path.resolve(__dirname, '../templates/email.template.hbs');
       const templateSource = fs.readFileSync(templatePath, 'utf8');
       const template = handlebars.compile(templateSource);
 
-      const htmlContent = template({
-        proyecto: project.nombre,
-        nombreRemitente: user.nombre,
-        descripcion: project.descripcion,
-        fecha: project.fecha
-      });
-
       // Enviar el mail
-      await MailService.sendMail(
-        user.email, // el mail del usuario notificado
-        `Notificación de proyecto: ${project.nombre}`,
-        htmlContent
-      );
+      await MailService.sendMail(req.body.email);
+      console.log(req.body.email);
 
       return res.status(200).json({
         message: "Notification sent successfully"
@@ -124,7 +102,7 @@ class ProjectController {
       console.error(err);
       return res.status(500).json({
         method: "notify",
-        message: err,
+        message: err.message,
       });
     }
   }

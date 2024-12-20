@@ -32,6 +32,7 @@ class TicketController {
       });
     }
   }
+  
   async createTicket(req, res){
     /* const fileBuffer = req.file.buffer;
      */try {
@@ -47,31 +48,6 @@ class TicketController {
     }
 };
 
-
-
-  /*async updateTicket(req, res) {
-    try {
-      let ticket = await TicketService.getTicketById(req.params.id);
-      if (!ticket) {
-        return res.status(404).json({
-          method: "updateTicket",
-          message: "Ticket not found"
-        });
-      }
-      const modifiedTicket = await TicketService.updateTicket(
-        req.params.id,
-        req.body,
-        ticket
-      );
-      return res.status(200).json(modifiedTicket);
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({
-        method: "updateTicket",
-        message: err
-      });
-    }
-  }*/
   async updateTicket(req,res){
     const{
         id
