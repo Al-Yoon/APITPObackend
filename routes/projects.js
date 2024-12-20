@@ -24,10 +24,4 @@ router.put('/:id',/*jwtValidator,*/ ProjectController.updateProject); //http://l
 
 router.delete('/:id',/* jwtValidator,*/ ProjectController.deleteProject); //http://localhost:8080/api/projects/:id - DELETE PROYECTOS
 
-router.post('/notify', [
-    check('projectId').not().isEmpty(),
-    check('userId').not().isEmpty(),
-    validateRequest
-  ], /* jwtValidator,*/ ProjectController.notify); // http://localhost:8080/api/projects/notify - POST NOTIFY
-
 module.exports = router;
