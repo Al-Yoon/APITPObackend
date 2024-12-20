@@ -16,6 +16,6 @@ router.delete('/', UsersProjectController.removeUserFromProject);
 router.post('/',[
     validateRequest,
 ],
-UsersProjectController.addUser); 
+UsersProjectController.addUser); //http://localhost:8080/api/userProject/ 
 
 module.exports = router;
