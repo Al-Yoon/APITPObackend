@@ -11,7 +11,6 @@ class AuthService {
       }
       console.log(user);
       const isPasswordValid = await bcrypt.compare(password, user.contrasenia);
-      //const isPasswordValid = await bcrypt.compare(password, user.contrasenia);
       if(isPasswordValid){
         return true;
       }

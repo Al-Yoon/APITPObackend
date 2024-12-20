@@ -1,8 +1,11 @@
 const {Project} = require("../db/db");
 
-const getProjects = async () => await Project.findAll(); //esto es gracias a sequelize
+const getProjects = async () => await Project.findAll(); 
+
 const getProjectById = async (id) => await Project.findByPk(id);
+
 const createProject = async (project) => await Project.create(project);
+
 const updateProject = async(project,id) => await Project.update(
   project,{
         where:{
@@ -10,6 +13,7 @@ const updateProject = async(project,id) => await Project.update(
         }
     }
 );
+
 const deleteProject = async(id) => await Project.destroy({where: {id}});
 
 module.exports = {

@@ -9,13 +9,13 @@ const ticketsInclude = [{
     attributes: ['id','nombre','fecha','usuarioId']
 }];
 
-const getTickets = async ()=> await Ticket.findAll(); //select * from tickets
+const getTickets = async ()=> await Ticket.findAll(); 
 
 const getTicketById = async (id)=> await Ticket.findByPk(id,{
     atrtributes: ticketsAtributes,
-    include: ticketsInclude}); // select * from tickets where id = id
+    include: ticketsInclude}); 
 
-const createTicket = async (ticket)=> await Ticket.create(ticket); // insert into tickets values ...
+const createTicket = async (ticket)=> await Ticket.create(ticket); 
 
 const updateTicket = async ()=> await Ticket.updateTicket(id);
 

@@ -86,12 +86,7 @@ class ProjectController {
 
   async notify(req, res) {
     try {
-      // template del html - Handlebars
-      const templatePath = path.resolve(__dirname, '../templates/email.template.hbs');
-      const templateSource = fs.readFileSync(templatePath, 'utf8');
-      const template = handlebars.compile(templateSource);
 
-      // Enviar el mail
       await MailService.sendMail(req.body.email);
       console.log(req.body.email);
 

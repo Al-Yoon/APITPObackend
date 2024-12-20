@@ -1,6 +1,8 @@
-# EasyPays
+# EasyPays - Backend
 
 EasyPays es una aplicación web para gestionar y dividir gastos de manera sencilla y eficiente. Esta guía te ayudará a configurar y ejecutar el proyecto tanto para el backend como para el frontend.
+
+Colaboradores: Alex Yoon, Santiago Boher y Federico Prieto.
 
 ## Prerrequisitos
 
@@ -11,11 +13,11 @@ EasyPays es una aplicación web para gestionar y dividir gastos de manera sencil
 ## Clonar el Repositorio
 
 Primero, clona el repositorio desde GitHub:
-(BACKEND) (Clonar la rama santiBranch)
-https://github.com/loveonick/backendEasyPays
+(BACKEND)
+https://github.com/Al-Yoon/APITPObackend.git- CAMBIAR RUTA
 
 (FRONTEND)
-https://github.com/Al-Yoon/EasyPays.git
+https://github.com/Al-Yoon/APITPOfrontend.git- CAMBIAR RUTA
 
 git clone
 
@@ -69,9 +71,11 @@ Esto iniciará el servidor del backend en el puerto 8080 (o el puerto especifica
 
 Luego de que se inicie el backend y se creen las tablas, abrir el archivo queriesPruebas e ir creando en MySQL algunas tablas dentro del servidor.
 
-Ahora con eso se pueden probar los endpoints en postman. El link es este:
+Ahora con eso se pueden probar los endpoints en postman o bien acceder a la documentación. Los links son los siguientes:
 
-https://easypays-5691.postman.co/workspace/be740b79-bf54-4938-b627-edc8d035f242/overview
+Documentación Endpoints: https://documenter.getpostman.com/view/39459933/2sAYJ3EMdt
+
+Endpoints: https://easypays-5691.postman.co/workspace/be740b79-bf54-4938-b627-edc8d035f242/overview
 
 ## Configuración del Frontend
 

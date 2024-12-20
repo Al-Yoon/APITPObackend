@@ -55,12 +55,10 @@ class UserController {
   async login(req, res) {
     try {
       const { email, contrasenia } = req.body;
-      // Validar user
       let isUserRegistered = await authenticationService.hasValidateCredentials(email, contrasenia);
       if (isUserRegistered) {
         const user = await UserService.getUserByEmail(email);
 
-        // Genero el token de sesión
         const token = jwt.sign(user.toJSON(), process.env.PRIVATE_KEY, {
           expiresIn: '1d',
           user,
@@ -69,7 +67,7 @@ class UserController {
 
         return res.status(200).json({
           status: 200,
-          token: token, // Corrected this line
+          token: token, 
           message: "Token created successfully"
         });
         

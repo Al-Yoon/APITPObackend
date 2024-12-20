@@ -1,7 +1,8 @@
 const { UserProject } = require("../db/db");
 const {Project} = require("../db/db");
 
-const addUser = async (usersProject) => await UserProject.create(usersProject);//ver este parametro
+const addUser = async (usersProject) => await UserProject.create(usersProject);
+
 const getUsersByProject = async (projectId) => await UserProject.findAll(
     {
         where: {

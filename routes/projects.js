@@ -1,3 +1,4 @@
+
 const { Router } = require('express');
 const ProjectController = require('../controllers/projectController');
 const jwtValidator = require("../middlewares/jwtValidator");
@@ -11,7 +12,6 @@ router.get('/', ProjectController.getProjects); //http://localhost:8080/api/proj
 
 router.get('/:id', ProjectController.getProjectById); //http://localhost:8080/api/projects/:id - GET PROJECT POR ID
 
-//lo que necesito crear para el proyecto
 router.post('/', [
   check('nombre').not().isEmpty(),
   check('descripcion').not().isEmpty(),

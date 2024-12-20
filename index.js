@@ -31,9 +31,6 @@ app.use('/api/tickets', ticketRoutes);
 app.use('/api/login', authRoutes);
 app.use('/api/userProject', userProjectRoutes);
 
-// Documentar los endpoints en esta ruta a partir del json
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));
-
 const PORT = 8080;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
