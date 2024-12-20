@@ -1,13 +1,12 @@
-const { UsersProject } = require("../db/db");
+const { UserProject } = require("../db/db");
 const {Project} = require("../db/db");
 
-const addUser = async (usersProject) => await UsersProject.create(usersProject);//ver este parametro
-const getUsersByProject = async (projectId) => await UsersProject.findAll(
+const addUser = async (usersProject) => await UserProject.create(usersProject);//ver este parametro
+const getUsersByProject = async (projectId) => await UserProject.findAll(
     {
         where: {
-        proyectId: projectId
-        },
-        attributes: ['id'],
+        projectId: projectId
+        }
     }
 );
 
@@ -19,7 +18,7 @@ const getProjectsByUser = async(id) => await Project.findAll(
     }
 );
 
-const removeUserFromProject = async(userId, ProyectId) => await UsersProject.destroy({ 
+const removeUserFromProject = async(userId, ProyectId) => await UserProject.destroy({ 
     where: { 
     ProyectId: ProyectId,
     UserId: userId
